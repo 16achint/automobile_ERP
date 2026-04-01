@@ -1,7 +1,7 @@
-import { pgTable, serial, text, date, numeric, boolean, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, date, numeric, boolean, timestamp, integer } from "drizzle-orm/pg-core";
 
 export const customers = pgTable("customers", {
-    id: serial("id").primaryKey(),
+    id: text("id").primaryKey(), // UUID primary key (generated in service)
 
     // Basic Info
     name: text("name").notNull(),
