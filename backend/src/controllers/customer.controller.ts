@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as customerService from "../services/customer.service";
-import { createCustomerSchema } from "../validators/customer.validator";
+import { createCustomerSchema, updateCustomerSchema } from "../validators/customer.validator";
 import { asyncHandler } from "../utils/asyncHandler";
 
 export const createCustomer = asyncHandler(async (req: Request, res: Response) => {
@@ -22,7 +22,8 @@ export const getCustomerById = asyncHandler(async (req: Request, res: Response) 
 
 export const updateCustomer = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const result = await customerService.updateCustomer(id, req.body);
+    const validatedData = updateCustomerSchema.parse(req.body);
+    const result = await customerService.updateCustomer(id, validatedData);
     res.status(200).json(result);
 });
 
