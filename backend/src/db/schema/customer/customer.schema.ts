@@ -1,29 +1,18 @@
-import { pgTable, text, date, numeric, boolean, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
+import { customerRoleEnum, customerStatusEnum } from "./enums";
 
 export const customers = pgTable("customers", {
-    id: text("id").primaryKey(), // UUID primary key (generated in service)
+  id: text("id").primaryKey(), // UUID
 
-    // Basic Info
-    name: text("name").notNull(),
-    mobile: text("mobile").notNull(),
-    email: text("email"),
-    address: text("address"),
+  fullName: text("full_name").notNull(),
+  aadhaarNumber: varchar("aadhaar_number", { length: 12 }).unique(),
 
-    // Purchase Info
-    bikeModel: text("bike_model"),
-    purchaseDate: date("purchase_date"),
-    modeOfPayment: text("mode_of_payment"),
+  role: customerRoleEnum("role").notNull(),
 
-    // Financials
-    cash: numeric("cash").default("0"),
-    credit: numeric("credit").default("0"),
-    creditor: boolean("creditor").default(false),
+  status: customerStatusEnum("status").default("pending"),
 
-    // Extra fields (important for your system)
-    promiseDate: date("promise_date"),
-    priceByCustomer: integer("price_by_customer"),
-    premiumAmount: numeric("premium_amount").default("0"),
-    priceDifference: numeric("price_difference").default("0"),
+  city: text("city"),
 
-    createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
