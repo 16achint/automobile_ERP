@@ -16,7 +16,6 @@ export const loginSchema = z.object({
 export const updateSchema = z.object({
     name: z.string().min(1, "Name is required").optional(),
     mobile: z.string().optional(),
-    role: z.string().optional(),
 }).strict();
 
 
