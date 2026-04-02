@@ -11,6 +11,6 @@ router.post("/login", authController.login);
 // Protected routes
 router.get("/me", authMiddleware, authController.getUser);
 router.put("/me", authMiddleware, authController.updateUser);
-router.delete("/:id", authMiddleware, authController.deleteUser);
+router.delete("/me", authMiddleware, authController.deleteUser);
 
 export default router;
