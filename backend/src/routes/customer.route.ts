@@ -4,9 +4,9 @@ import {adminMiddleware,authMiddleware} from "../middlewares/authMiddleware"
 
 const router = express.Router();
 
-router.post("/",authMiddleware, customerController.createCustomer);
-router.get("/",authMiddleware, customerController.getCustomers);
-router.get("/:id",authMiddleware, customerController.getCustomerById);
-router.put("/:id",authMiddleware, customerController.updateCustomer);
-router.delete("/:id",authMiddleware,adminMiddleware,  customerController.deleteCustomer);
+router.post("/", customerController.createCustomer);
+router.get("/", customerController.getCustomers);
+router.get("/:id", customerController.getCustomerById);
+router.put("/:id", customerController.updateCustomer);
+router.delete("/:id", customerController.deleteCustomer);
 export default router;
