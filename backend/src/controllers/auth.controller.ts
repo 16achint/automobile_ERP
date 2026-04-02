@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as userService from "../services/user.service";
-import { registerSchema, loginSchema } from "../validators/user.validator";
+import { registerSchema, loginSchema, updateSchema } from "../validators/user.validator";
 import { asyncHandler } from "../utils/asyncHandler";
 
 export const register = asyncHandler(async (req: Request, res: Response) => {
@@ -23,12 +23,13 @@ export const getUser = asyncHandler(async (req: Request, res: Response) => {
 
 export const updateUser = asyncHandler(async (req: Request, res: Response) => {
     const userId = (req as any).userId;
-    const result = await userService.updateUser(userId, req.body);
+    const validatedData = updateSchema.parse(req.body);
+    const result = await userService.updateUser(userId, validatedData);
     res.status(200).json(result);
 });
 
 export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
-    const id = req.params.id as string;
-    const result = await userService.deleteUser(id);
+    const userId = (req as any).userId;
+    const result = await userService.deleteUser(userId);
     res.status(200).json(result);
 });
